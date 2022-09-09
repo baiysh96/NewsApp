@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { IUser } from '../../models/IUser'
 import { axiosV1 } from '../../config/api'
+import { Values } from '../../pages/AddNews/AddNews'
 
 export const getUsers = createAsyncThunk(
   'user/getUsers',
@@ -11,6 +12,17 @@ export const getUsers = createAsyncThunk(
       return data
     } catch (error) {
       return thunkAPI.rejectWithValue('Не удалось загрузить пользоватилей ')
+    }
+  },
+)
+export const postUser = createAsyncThunk(
+  'news/postUser',
+  async (values: Values, thunkAPI) => {
+    try {
+      const { data } = await axiosV1.post<IUser[]>('/users', values)
+      return console.log(data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось загрузить новости ')
     }
   },
 )
@@ -55,6 +67,18 @@ export const userSlice = createSlice({
       state.isLoading = true
     },
     [getUsers.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    [postUser.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
+      state.users = action.payload
+      state.isLoading = false
+      state.error = ''
+    },
+    [postUser.pending.type]: (state, action: PayloadAction<IUser[]>) => {
+      state.isLoading = true
+    },
+    [postUser.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false
       state.error = action.payload
     },
