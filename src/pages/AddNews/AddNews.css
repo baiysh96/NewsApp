@@ -1,0 +1,14 @@
+form {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+form input{
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 10px 50px;
+    border: none;
+}
+select {
+    margin-bottom: 30px;
+}

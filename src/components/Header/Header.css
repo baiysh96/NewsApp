@@ -1,0 +1,21 @@
+
+.container {
+    margin: 0 auto;
+    width: 1270px;
+    display: flex;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px 0;
+    background-color: whitesmoke;
+    border-bottom: 1px solid #888888;
+}
+header a {
+    margin-right: 20px;
+    color: black;
+}
+.active {
+    color: #888888;
+}
